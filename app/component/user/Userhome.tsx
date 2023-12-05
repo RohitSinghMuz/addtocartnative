@@ -23,20 +23,25 @@ interface ProductItem {
 }
 
 const Userhome: React.FC<{navigation: any}> = ({navigation}) => {
-  const [data, setData] = useState<ProductItem[]>([]);
-  const [cartItems, setCartItems] = useState<ProductItem[]>([]);
+  const [data, setData] = useState<any[]>([]);
+  const [cartItems, setCartItems] = useState<any[]>([]);
   const [totalAmount, setTotalAmount] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
 
   const loadFromAsyncStorage = async () => {
     try {
       const storedData: any = await AsyncStorage.getItem('ListItems');
-      const parsedData: ProductItem[] = JSON.parse(storedData) || [];
+      const parsedData: ProductItem[] = storedData
+        ? JSON.parse(storedData)
+        : [];
       setData(parsedData);
     } catch (error) {
       console.error('Error loading data from AsyncStorage:', error);
     }
   };
+  useEffect(() => {
+    loadFromAsyncStorage();
+  }, []);
 
   const handleAddToCart = (item: ProductItem) => {
     if (item.price !== null) {
@@ -47,16 +52,15 @@ const Userhome: React.FC<{navigation: any}> = ({navigation}) => {
       if (existingCartItem) {
         existingCartItem.quantity += 1;
       } else {
-        const newCartItem: ProductItem = {
-          id: item.id,
-          title: item.title,
-          price: item.price !== null ? Math.trunc(item.price) : null,
-          quantity: 1,
-          image: item.image,
-          brandName: item.brandName,
-          size: item.size,
-        };
-        setCartItems(prevCartItems => [...prevCartItems, newCartItem]);
+        setCartItems(prevCartItems => [
+          ...prevCartItems,
+          {
+            id: item.id,
+            title: item.title,
+            price: item.price !== null ? Math.trunc(item.price) : null,
+            quantity: 1,
+          },
+        ]);
       }
 
       setCount(prevCount => prevCount + 1);
@@ -73,29 +77,31 @@ const Userhome: React.FC<{navigation: any}> = ({navigation}) => {
     navigation.navigate('Cart');
   };
 
-  const loadFromCart = async () => {
+  const loadFromLocalStorage = async () => {
     try {
-      const storedCartItems = await AsyncStorage.getItem('cartItems');
-      const storedTotalAmount = await AsyncStorage.getItem('totalAmount');
+      const cartItemsData = await AsyncStorage.getItem('cartItems');
+      const totalAmountData = await AsyncStorage.getItem('totalAmount');
 
-      if (storedCartItems) {
-        setCartItems(JSON.parse(storedCartItems));
-      }
+      const parsedCartItems = cartItemsData ? JSON.parse(cartItemsData) : [];
+      const parsedTotalAmount = totalAmountData
+        ? JSON.parse(totalAmountData)
+        : 0;
 
-      if (storedTotalAmount) {
-        setTotalAmount(JSON.parse(storedTotalAmount));
-      }
+      const itemCount = parsedCartItems.reduce(
+        (acc: any, item: {quantity: any}) => acc + item.quantity,
+        0,
+      );
+
+      setCartItems(parsedCartItems);
+      setTotalAmount(parsedTotalAmount);
+      setCount(itemCount);
     } catch (error) {
-      console.error('Error loading data from AsyncStorage:', error);
+      console.error('Error loading data from local storage:', error);
     }
   };
 
   useEffect(() => {
-    loadFromAsyncStorage();
-  }, [data]);
-
-  useEffect(() => {
-    loadFromCart();
+    loadFromLocalStorage();
   }, []);
 
   const saveToLocalStorage = async () => {
@@ -103,13 +109,14 @@ const Userhome: React.FC<{navigation: any}> = ({navigation}) => {
       await AsyncStorage.setItem('cartItems', JSON.stringify(cartItems));
       await AsyncStorage.setItem('totalAmount', JSON.stringify(totalAmount));
     } catch (error) {
-      console.error('Error saving data to AsyncStorage:', error);
+      console.error('Error saving data to local storage:', error);
     }
   };
 
   useEffect(() => {
     saveToLocalStorage();
   }, [cartItems, totalAmount]);
+
   const renderElement = ({item}: {item: ProductItem}) => {
     return (
       <View style={Styles.card}>

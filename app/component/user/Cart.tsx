@@ -3,15 +3,15 @@ import {View, Text, Button, TouchableOpacity, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {getHeigth, getWidth} from '../../utils/responsiveScale';
+
 interface CartItem {
-  brandName: string;
   id: number;
-  title: string;
+  brandName: string;
   price: number | null;
   quantity: number;
 }
 
-const Cart: React.FC = ({navigation}: any) => {
+const Cart: React.FC = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [totalAmount, setTotalAmount] = useState<number>(0);
 
@@ -32,31 +32,19 @@ const Cart: React.FC = ({navigation}: any) => {
         setTotalAmount(JSON.parse(storedTotalAmount));
       }
     } catch (error) {
-      console.error('Error loading cart data: ', error);
+      console.error('Error loading cart data:', error);
     }
   };
 
-  const updateAsyncStorage = async () => {
+  const updateLocalStorage = async () => {
     try {
       await AsyncStorage.setItem('cartItems', JSON.stringify(cartItems));
       await AsyncStorage.setItem('totalAmount', JSON.stringify(totalAmount));
     } catch (error) {
-      console.error('Error updating AsyncStorage: ', error);
+      console.error('Error updating local storage:', error);
     }
   };
 
-  const saveToLocalStorage = async () => {
-    try {
-      await AsyncStorage.setItem('cartItems', JSON.stringify(cartItems));
-      await AsyncStorage.setItem('totalAmount', JSON.stringify(totalAmount));
-    } catch (error) {
-      console.error('Error saving data to AsyncStorage:', error);
-    }
-  };
-
-  useEffect(() => {
-    saveToLocalStorage();
-  }, []);
   const handleRemoveFromCart = (item: CartItem) => {
     if (item.price !== null) {
       const existingCartItem = cartItems.find(
@@ -75,8 +63,7 @@ const Cart: React.FC = ({navigation}: any) => {
         }
 
         setTotalAmount(prevTotalAmount => prevTotalAmount - (item.price || 0));
-
-        updateAsyncStorage();
+        updateLocalStorage();
       }
     }
   };
@@ -91,10 +78,8 @@ const Cart: React.FC = ({navigation}: any) => {
     }
 
     setTotalAmount(prevTotalAmount => prevTotalAmount + (item.price || 0));
-
-    updateAsyncStorage();
+    updateLocalStorage();
   };
-
   return (
     <View>
       <Text>Cart Page</Text>
