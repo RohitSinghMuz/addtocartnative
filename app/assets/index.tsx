@@ -1,0 +1,16 @@
+export const spalshBg = require('./images/bg.png');
+export const splashCenter = require('./images/splashCenter.png');
+export const spalshTop = require('./images/splashTop.png');
+export const spalshBottom = require('./images/splashBottom.png');
+export const loginImg = require('./images/loginImg.png');
+export const otpImage = require('./images/otpImage.png');
+export const profileImg = require('./images/profileImg.png');
+export const imgOne = require('./images/image1.png');
+export const imgTwo = require('./images/image2.png');
+export const imgFour = require('./images/image3.png');
+export const imgThree = require('./images/image3.png');
+export const bestOne = require('./images/best1.png');
+export const bestTwo = require('./images/best2.png');
+export const bestThree = require('./images/best3.png');
+export const bestFour = require('./images/best4.png');
+export const bestFive = require('./images/best5.png');

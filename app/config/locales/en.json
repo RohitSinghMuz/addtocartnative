@@ -1,0 +1,12 @@
+{
+  "loading": "Loading...",
+  "loginasUserText":"Login as User",
+  "loginasAdminText":"Login as Admin",
+  "brandNameText":"Enter Brand Name of Shoes",
+  "saveNewBrandText":"Add New Brand",
+  "sizeText":"Enter Size of the Shoes",
+  "rupessText":"Enter Price of the Shoes(Rs:)",
+  "addNewText":"Add New Brand",
+  "shoesShopText":"Shoes Shop"
+ 
+}
