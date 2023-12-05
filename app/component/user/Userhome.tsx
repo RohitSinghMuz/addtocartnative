@@ -27,7 +27,7 @@ const Userhome: React.FC<{navigation: any}> = ({navigation}) => {
   const [cartItems, setCartItems] = useState<any[]>([]);
   const [totalAmount, setTotalAmount] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
-
+  console.log('cartItems----', cartItems);
   const loadFromAsyncStorage = async () => {
     try {
       const storedData: any = await AsyncStorage.getItem('ListItems');
@@ -91,7 +91,6 @@ const Userhome: React.FC<{navigation: any}> = ({navigation}) => {
         (acc: any, item: {quantity: any}) => acc + item.quantity,
         0,
       );
-
       setCartItems(parsedCartItems);
       setTotalAmount(parsedTotalAmount);
       setCount(itemCount);
@@ -141,13 +140,24 @@ const Userhome: React.FC<{navigation: any}> = ({navigation}) => {
     <View style={Styles.containerStyle}>
       <Text style={Styles.shopTitleStyle}>Shoes Shop</Text>
       <TouchableOpacity style={Styles.buttonStyle} onPress={handleShowData}>
+        <Text>
+          {cartItems.length > 0 ? (
+            <Text
+              style={{
+                color: 'red',
+                fontSize: 18,
+                position: 'absolute',
+              }}>
+              *{count}
+            </Text>
+          ) : null}
+        </Text>
         <AntDesign
           name="shoppingcart"
           color="black"
           size={25}
           style={Styles.buttonTextStyle}
         />
-        {count > 0 ? <Text>{count}</Text> : null}
       </TouchableOpacity>
 
       <View style={Styles.flatlistViewStyle}>

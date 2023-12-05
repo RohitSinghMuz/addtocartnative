@@ -14,7 +14,7 @@ interface CartItem {
 const Cart: React.FC = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [totalAmount, setTotalAmount] = useState<number>(0);
-
+  console.log('cartItems------Cart', cartItems);
   useEffect(() => {
     loadCartData();
   }, []);
@@ -47,23 +47,27 @@ const Cart: React.FC = () => {
 
   const handleRemoveFromCart = (item: CartItem) => {
     if (item.price !== null) {
-      const existingCartItem = cartItems.find(
+      const existingCartItemIndex = cartItems.findIndex(
         cartItem => cartItem.id === item.id,
       );
+      if (existingCartItemIndex !== -1) {
+        const updatedCartItems = [...cartItems];
+        const existingCartItem = updatedCartItems[existingCartItemIndex];
 
-      if (existingCartItem) {
         if (existingCartItem.quantity === 1) {
-          setCartItems(prevCartItems =>
-            prevCartItems.filter(
-              cartItem => cartItem.id !== existingCartItem.id,
-            ),
-          );
+          updatedCartItems.splice(existingCartItemIndex, 1);
         } else {
           existingCartItem.quantity -= 1;
         }
+        setCartItems(updatedCartItems);
 
         setTotalAmount(prevTotalAmount => prevTotalAmount - (item.price || 0));
         updateLocalStorage();
+        if (updatedCartItems.length === 0) {
+          console.log('Cart is empty now');
+          AsyncStorage.removeItem('cartItems');
+          AsyncStorage.removeItem('totalAmount');
+        }
       }
     }
   };
