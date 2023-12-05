@@ -92,57 +92,76 @@ const Cart: React.FC<{navigation: any}> = ({navigation}) => {
   };
 
   return (
-    <View>
-      <View style={{margin: 10}}>
-        {cartItems.map((item, index) => (
-          <View key={item.id}>
-            <Text>
+    <View style={styles.container}>
+      <View style={styles.cartContainer}>
+        {cartItems.map(item => (
+          <View key={item.id} style={styles.cartItem}>
+            <Text style={styles.itemText}>
               {item.brandName}
-              {cartItems.length > 0 ? (
+              {cartItems.length > 0 && (
                 <TouchableOpacity onPress={() => handleRemoveFromCart(item)}>
                   {item.quantity === 1 ? (
                     <AntDesign
                       name="close"
                       color="black"
                       size={20}
-                      style={styles.buttonTextStyle}
+                      style={styles.icon}
                     />
                   ) : (
                     <AntDesign
                       name="minus"
                       color="black"
                       size={20}
-                      style={styles.buttonTextStyle}
+                      style={styles.icon}
                     />
                   )}
                 </TouchableOpacity>
-              ) : null}
+              )}
               ${item.price}*{item.quantity}
               <TouchableOpacity onPress={() => handleIncreaseQuantity(item)}>
                 <AntDesign
                   name="plus"
                   color="black"
                   size={20}
-                  style={styles.buttonTextStyle}
+                  style={styles.icon}
                 />
               </TouchableOpacity>
             </Text>
           </View>
         ))}
-        {cartItems.length > 0 ? (
-          <Text>Total Amount: ${totalAmount}</Text>
-        ) : null}
+        {cartItems.length > 0 && (
+          <Text style={styles.totalAmount}>Total Amount: ${totalAmount}</Text>
+        )}
       </View>
     </View>
   );
 };
-
 export default Cart;
 
 const styles = StyleSheet.create({
-  buttonTextStyle: {
-    width: getWidth(6),
-    height: getHeight(2.4),
-    margin: getHeight(0.2),
+  container: {
+    flex: 1,
+    backgroundColor: 'grey',
+  },
+  cartContainer: {
+    backgroundColor: 'grey',
+    padding: 10,
+  },
+  cartItem: {
+    marginBottom: 10,
+  },
+  itemText: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    fontFamily: 'Poppins',
+    fontSize: 18,
+  },
+  icon: {
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  totalAmount: {
+    marginTop: 10,
+    fontWeight: 'bold',
   },
 });
