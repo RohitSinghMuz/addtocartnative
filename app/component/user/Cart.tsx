@@ -2,7 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, Button, TouchableOpacity, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {getHeigth, getWidth} from '../../utils/responsiveScale';
+import {getHeight, getWidth} from '../../utils/responsiveScale';
+import Userhome from './Userhome';
 
 interface CartItem {
   id: number;
@@ -11,12 +12,14 @@ interface CartItem {
   quantity: number;
 }
 
-const Cart: React.FC = () => {
+const Cart: React.FC<{navigation: any}> = ({navigation}) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [totalAmount, setTotalAmount] = useState<number>(0);
   console.log('cartItems------Cart', cartItems);
   useEffect(() => {
     loadCartData();
+    // AsyncStorage.removeItem('cartItems');
+    //AsyncStorage.removeItem('totalAmount');
   }, []);
 
   const loadCartData = async () => {
@@ -50,6 +53,7 @@ const Cart: React.FC = () => {
       const existingCartItemIndex = cartItems.findIndex(
         cartItem => cartItem.id === item.id,
       );
+
       if (existingCartItemIndex !== -1) {
         const updatedCartItems = [...cartItems];
         const existingCartItem = updatedCartItems[existingCartItemIndex];
@@ -59,10 +63,12 @@ const Cart: React.FC = () => {
         } else {
           existingCartItem.quantity -= 1;
         }
-        setCartItems(updatedCartItems);
 
+        setCartItems(updatedCartItems);
         setTotalAmount(prevTotalAmount => prevTotalAmount - (item.price || 0));
+
         updateLocalStorage();
+
         if (updatedCartItems.length === 0) {
           console.log('Cart is empty now');
           AsyncStorage.removeItem('cartItems');
@@ -84,9 +90,9 @@ const Cart: React.FC = () => {
     setTotalAmount(prevTotalAmount => prevTotalAmount + (item.price || 0));
     updateLocalStorage();
   };
+
   return (
     <View>
-      <Text>Cart Page</Text>
       <View style={{margin: 10}}>
         {cartItems.map((item, index) => (
           <View key={item.id}>
@@ -136,7 +142,7 @@ export default Cart;
 const styles = StyleSheet.create({
   buttonTextStyle: {
     width: getWidth(6),
-    height: getHeigth(2.4),
-    margin: getHeigth(0.2),
+    height: getHeight(2.4),
+    margin: getHeight(0.2),
   },
 });

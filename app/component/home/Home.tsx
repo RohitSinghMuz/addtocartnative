@@ -11,7 +11,7 @@ import {
   FlatList,
 } from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
-import {getFontSize, getHeigth, getWidth} from '../../utils/responsiveScale';
+import {getFontSize, getHeight, getWidth} from '../../utils/responsiveScale';
 import {
   profileImg,
   splashCenter,
@@ -223,25 +223,25 @@ const Home = ({navigation}: any) => {
 export default Home;
 const Styles = StyleSheet.create({
   menuStyle: {
-    padding: getHeigth(1),
+    padding: getHeight(1),
   },
   menuViewStyle: {
     textAlign: 'center',
     alignSelf: 'center',
     width: getWidth(15),
     height: getWidth(15),
-    padding: getHeigth(1),
-    borderRadius: getHeigth(10),
+    padding: getHeight(1),
+    borderRadius: getHeight(10),
     backgroundColor: '#e7ac28',
   },
   spalshCenterImgStyle: {
     width: getWidth(36),
     resizeMode: 'contain',
-    height: getHeigth(6),
+    height: getHeight(6),
   },
   headerViewStyle: {
     backgroundColor: '#F5BF45',
-    paddingVertical: getHeigth(3),
+    paddingVertical: getHeight(3),
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
@@ -250,9 +250,9 @@ const Styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: 'white',
     width: getWidth(65),
-    height: getHeigth(9),
-    paddingHorizontal: getHeigth(1.5),
-    paddingVertical: getHeigth(1),
+    height: getHeight(9),
+    paddingHorizontal: getHeight(1.5),
+    paddingVertical: getHeight(1),
   },
   searchTextStyle: {
     fontSize: getFontSize(5.5),
@@ -264,29 +264,29 @@ const Styles = StyleSheet.create({
     flexDirection: 'row',
   },
   pincodeViewStyle: {
-    borderLeftWidth: getHeigth(0.03),
+    borderLeftWidth: getHeight(0.03),
     borderColor: '#A4A1A1',
     display: 'flex',
     flexDirection: 'row',
     backgroundColor: 'white',
     width: getWidth(35),
-    height: getHeigth(9),
-    paddingHorizontal: getHeigth(0.1),
-    paddingVertical: getHeigth(1),
+    height: getHeight(9),
+    paddingHorizontal: getHeight(0.1),
+    paddingVertical: getHeight(1),
   },
   pincodeValueStyle: {
-    paddingVertical: getHeigth(1.4),
+    paddingVertical: getHeight(1.4),
     fontSize: getFontSize(5),
     fontFamily: 'Poppins',
     fontWeight: 'bold',
   },
   locationIconsStyle: {
-    paddingVertical: getHeigth(1.4),
-    paddingHorizontal: getHeigth(0.8),
+    paddingVertical: getHeight(1.4),
+    paddingHorizontal: getHeight(0.8),
   },
   container: {
     width: getWidth(100),
-    height: getHeigth(25),
+    height: getHeight(25),
     backgroundColor: '#C4C4C4',
   },
   imageBtnStyle: {
@@ -295,9 +295,9 @@ const Styles = StyleSheet.create({
   },
   currentImage: {
     width: getWidth(82),
-    height: getHeigth(20),
-    margin: getHeigth(1),
-    borderRadius: getHeigth(1),
+    height: getHeight(20),
+    margin: getHeight(1),
+    borderRadius: getHeight(1),
     resizeMode: 'cover',
   },
 
@@ -306,8 +306,8 @@ const Styles = StyleSheet.create({
     zIndex: 999,
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: getHeigth(18),
-    marginHorizontal: getHeigth(20),
+    marginTop: getHeight(18),
+    marginHorizontal: getHeight(20),
   },
   bullet: {
     width: 10,
@@ -321,20 +321,20 @@ const Styles = StyleSheet.create({
   },
   prevImage: {
     width: getWidth(10),
-    height: getHeigth(20),
-    marginVertical: getHeigth(1),
-    borderRadius: getHeigth(1),
+    height: getHeight(20),
+    marginVertical: getHeight(1),
+    borderRadius: getHeight(1),
     resizeMode: 'cover',
   },
   nextImage: {
     width: getWidth(8),
-    height: getHeigth(20),
-    borderRadius: getHeigth(1),
-    marginVertical: getHeigth(1),
+    height: getHeight(20),
+    borderRadius: getHeight(1),
+    marginVertical: getHeight(1),
     resizeMode: 'cover',
   },
   bestSellerViewStyle: {
-    margin: getHeigth(1),
+    margin: getHeight(1),
   },
   bestSellerStyle: {
     fontSize: getFontSize(4),
@@ -343,29 +343,29 @@ const Styles = StyleSheet.create({
     color: '#18161B',
   },
   bestSellerProductViewStyle: {
-    margin: getHeigth(1),
+    margin: getHeight(1),
   },
   priceViewStyle: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    marginHorizontal: getHeigth(1),
+    marginHorizontal: getHeight(1),
   },
   imageBestStyle: {
     width: getWidth(40),
-    height: getHeigth(12),
-    borderRadius: getHeigth(1),
+    height: getHeight(12),
+    borderRadius: getHeight(1),
   },
   titleBestStyle: {
     fontSize: getFontSize(3.5),
-    margin: getHeigth(1),
+    margin: getHeight(1),
     alignSelf: 'flex-start',
     fontFamily: 'MontserratAlternates-SemiBold',
   },
   priceStyle: {
     color: '#F62B2A',
     fontSize: getFontSize(3.5),
-    marginHorizontal: getHeigth(1),
+    marginHorizontal: getHeight(1),
     fontFamily: 'MontserratAlternates-SemiBold',
   },
   crossPriceStyle: {
@@ -378,10 +378,10 @@ const Styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: getHeigth(0.8),
+    paddingHorizontal: getHeight(0.8),
     backgroundColor: '#F5BF45',
-    borderRadius: getHeigth(5),
-    marginVertical: getHeigth(1),
+    borderRadius: getHeight(5),
+    marginVertical: getHeight(1),
   },
   countStyle: {
     fontSize: getFontSize(4.5),
@@ -389,11 +389,11 @@ const Styles = StyleSheet.create({
     fontFamily: 'MontserratAlternates-SemiBold',
     fontWeight: '700',
     alignSelf: 'center',
-    paddingTop: getHeigth(1),
-    borderLeftWidth: getHeigth(0.08),
-    paddingHorizontal: getHeigth(2),
-    borderRightWidth: getHeigth(0.08),
+    paddingTop: getHeight(1),
+    borderLeftWidth: getHeight(0.08),
+    paddingHorizontal: getHeight(2),
+    borderRightWidth: getHeight(0.08),
     borderColor: '#FFFFFF',
-    height: getHeigth(5),
+    height: getHeight(5),
   },
 });

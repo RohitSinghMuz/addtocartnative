@@ -8,7 +8,7 @@ import {
 import React, {useState} from 'react';
 import {Avatar} from 'react-native-elements';
 import {loginImg} from '../../assets';
-import {getFontSize, getHeigth, getWidth} from '../../utils/responsiveScale';
+import {getFontSize, getHeight, getWidth} from '../../utils/responsiveScale';
 import {translate} from '../../config/i18n';
 import Icon from 'react-native-vector-icons/Fontisto';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -84,17 +84,17 @@ export default Login;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: getHeigth(15),
+    marginTop: getHeight(15),
     alignItems: 'center',
   },
   avatarContainer: {
-    paddingTop: getHeigth(1),
+    paddingTop: getHeight(1),
     borderWidth: 10,
     backgroundColor: '#dfe2e8',
     borderColor: '#fdf2da',
-    height: getHeigth(28),
+    height: getHeight(28),
     width: getWidth(56),
-    borderRadius: getHeigth(20),
+    borderRadius: getHeight(20),
   },
 
   loginViewStyle: {
@@ -104,11 +104,11 @@ const styles = StyleSheet.create({
 
   loginasUserTextStyle: {
     backgroundColor: '#F62B2A',
-    borderRadius: getHeigth(5),
+    borderRadius: getHeight(5),
     marginHorizontal: getWidth(15),
-    paddingHorizontal: getHeigth(2),
-    paddingVertical: getHeigth(2.5),
-    marginTop: getHeigth(3),
+    paddingHorizontal: getHeight(2),
+    paddingVertical: getHeight(2.5),
+    marginTop: getHeight(3),
   },
   continueTextStyle: {
     textAlign: 'center',

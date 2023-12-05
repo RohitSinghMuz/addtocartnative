@@ -10,8 +10,8 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {getFontSize, getHeigth, getWidth} from '../../utils/responsiveScale';
-
+import {getFontSize, getWidth, getHeight} from '../../utils/responsiveScale';
+import {useFocusEffect} from '@react-navigation/native';
 interface ProductItem {
   id: string;
   title: string;
@@ -27,7 +27,7 @@ const Userhome: React.FC<{navigation: any}> = ({navigation}) => {
   const [cartItems, setCartItems] = useState<any[]>([]);
   const [totalAmount, setTotalAmount] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
-  console.log('cartItems----', cartItems);
+
   const loadFromAsyncStorage = async () => {
     try {
       const storedData: any = await AsyncStorage.getItem('ListItems');
@@ -39,11 +39,12 @@ const Userhome: React.FC<{navigation: any}> = ({navigation}) => {
       console.error('Error loading data from AsyncStorage:', error);
     }
   };
+
   useEffect(() => {
     loadFromAsyncStorage();
   }, []);
 
-  const handleAddToCart = (item: ProductItem) => {
+  const handleAddToCart = (item: any) => {
     if (item.price !== null) {
       const existingCartItem = cartItems.find(
         cartItem => cartItem.id === item.id,
@@ -56,7 +57,7 @@ const Userhome: React.FC<{navigation: any}> = ({navigation}) => {
           ...prevCartItems,
           {
             id: item.id,
-            title: item.title,
+            brandName: item.brandName,
             price: item.price !== null ? Math.trunc(item.price) : null,
             quantity: 1,
           },
@@ -66,11 +67,11 @@ const Userhome: React.FC<{navigation: any}> = ({navigation}) => {
       setCount(prevCount => prevCount + 1);
       setTotalAmount(
         prevTotalAmount =>
-          prevTotalAmount + (item.price !== null ? Math.trunc(item.price) : 0),
+          prevTotalAmount +
+          (item.price !== null ? Math.trunc(item.price) : null || 0),
       );
     }
   };
-
   const handleShowData = () => {
     AsyncStorage.setItem('cartItems', JSON.stringify(cartItems));
     AsyncStorage.setItem('totalAmount', JSON.stringify(totalAmount));
@@ -91,6 +92,7 @@ const Userhome: React.FC<{navigation: any}> = ({navigation}) => {
         (acc: any, item: {quantity: any}) => acc + item.quantity,
         0,
       );
+
       setCartItems(parsedCartItems);
       setTotalAmount(parsedTotalAmount);
       setCount(itemCount);
@@ -99,9 +101,11 @@ const Userhome: React.FC<{navigation: any}> = ({navigation}) => {
     }
   };
 
-  useEffect(() => {
-    loadFromLocalStorage();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      loadFromLocalStorage();
+    }, []),
+  );
 
   const saveToLocalStorage = async () => {
     try {
@@ -118,18 +122,18 @@ const Userhome: React.FC<{navigation: any}> = ({navigation}) => {
 
   const renderElement = ({item}: {item: ProductItem}) => {
     return (
-      <View style={Styles.card}>
-        <Image source={{uri: item.image}} style={Styles.cardImage} />
-        <View style={Styles.cardContent}>
-          <Text style={Styles.cardTitleText}>Brand: {item.brandName}</Text>
-          <Text style={Styles.cardTitleText}>Size: {item.size}</Text>
-          <Text style={Styles.cardTitleText}>
+      <View style={styles.card}>
+        <Image source={{uri: item.image}} style={styles.cardImage} />
+        <View style={styles.cardContent}>
+          <Text style={styles.cardTitleText}>Brand: {item.brandName}</Text>
+          <Text style={styles.cardTitleText}>Size: {item.size}</Text>
+          <Text style={styles.cardTitleText}>
             Price: ${item.price !== null ? Math.trunc(item.price) : null}
           </Text>
           <TouchableOpacity
-            style={Styles.addTocartButtonStyle}
+            style={styles.addToCartButtonStyle}
             onPress={() => handleAddToCart(item)}>
-            <Text style={Styles.addTocartStyle}> Add To Cart</Text>
+            <Text style={styles.addToCartStyle}> Add To Cart</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -137,30 +141,23 @@ const Userhome: React.FC<{navigation: any}> = ({navigation}) => {
   };
 
   return (
-    <View style={Styles.containerStyle}>
-      <Text style={Styles.shopTitleStyle}>Shoes Shop</Text>
-      <TouchableOpacity style={Styles.buttonStyle} onPress={handleShowData}>
+    <View style={styles.container}>
+      <Text style={styles.shopTitle}>Shoes Shop</Text>
+      <TouchableOpacity style={styles.cartButton} onPress={handleShowData}>
         <Text>
           {cartItems.length > 0 ? (
-            <Text
-              style={{
-                color: 'red',
-                fontSize: 18,
-                position: 'absolute',
-              }}>
-              *{count}
-            </Text>
+            <Text style={styles.cartItemCount}>*{count}</Text>
           ) : null}
         </Text>
         <AntDesign
           name="shoppingcart"
           color="black"
           size={25}
-          style={Styles.buttonTextStyle}
+          style={styles.cartButtonIcon}
         />
       </TouchableOpacity>
 
-      <View style={Styles.flatlistViewStyle}>
+      <View style={styles.flatlistView}>
         <FlatList
           numColumns={2}
           showsVerticalScrollIndicator={false}
@@ -175,57 +172,39 @@ const Userhome: React.FC<{navigation: any}> = ({navigation}) => {
 
 export default Userhome;
 
-const Styles = StyleSheet.create({
-  containerStyle: {
+const styles = StyleSheet.create({
+  container: {
     flex: 1,
   },
-  flatlistViewStyle: {
+  flatlistView: {
     marginHorizontal: 1,
-    marginVertical: getHeigth(2),
+    marginVertical: getHeight(2),
   },
-  buttonTextStyle: {
+  cartButtonIcon: {
     width: getWidth(6),
-    height: getHeigth(2.4),
+    height: getHeight(2.4),
   },
-  buttonStyle: {
+  cartButton: {
     width: getWidth(20),
-    height: getHeigth(4),
-    marginLeft: getHeigth(44),
+    height: getHeight(4),
+    marginLeft: getHeight(44),
     display: 'flex',
     justifyContent: 'flex-end',
   },
-  imgStyle: {
-    width: getWidth(45.3),
-    height: getHeigth(27.8),
-    borderTopRightRadius: getHeigth(2),
-    borderTopLeftRadius: getHeigth(2),
-  },
-  ListItemViewStyle: {
-    backgroundColor: '',
-    margin: getHeigth(1),
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  BrandStyle: {
-    fontSize: getFontSize(4.5),
-    fontFamily: 'Poppins',
-    alignSelf: 'center',
-  },
-  addTocartStyle: {
+  addToCartStyle: {
     fontSize: getFontSize(4.5),
     fontFamily: 'Poppins',
     alignSelf: 'center',
     color: 'white',
   },
-  addTocartButtonStyle: {
+  addToCartButtonStyle: {
     backgroundColor: '#ff9e00',
     width: getWidth(40),
     paddingHorizontal: getWidth(5),
-    paddingVertical: getHeigth(1.2),
-    borderRadius: getHeigth(1),
-    marginVertical: getHeigth(1),
+    paddingVertical: getHeight(1.2),
+    borderRadius: getHeight(1),
+    marginVertical: getHeight(1),
   },
-
   card: {
     width: '45%',
     backgroundColor: '#fff',
@@ -242,19 +221,13 @@ const Styles = StyleSheet.create({
   },
   cardImage: {
     width: '100%',
-    height: getHeigth(22),
+    height: getHeight(22),
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
     resizeMode: 'cover',
   },
   cardContent: {
     padding: 10,
-  },
-  cardTitle: {
-    fontSize: getFontSize(5),
-    fontWeight: 'bold',
-    marginBottom: 5,
-    color: '#2873f0',
   },
   cardTitleText: {
     alignSelf: 'center',
@@ -263,16 +236,17 @@ const Styles = StyleSheet.create({
     marginBottom: 5,
     color: '#2873f0',
   },
-  shopTitleStyle: {
+  shopTitle: {
     alignSelf: 'center',
-    marginVertical: getHeigth(1),
+    marginVertical: getHeight(1),
     fontSize: getFontSize(5.5),
     fontWeight: 'bold',
     marginBottom: 5,
     color: '#fb641b',
   },
-  cardDescription: {
-    fontSize: 16,
-    color: '#555',
+  cartItemCount: {
+    color: 'red',
+    fontSize: 18,
+    position: 'absolute',
   },
 });

@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 
 import {spalshBg, otpImage} from '../../assets';
-import {getFontSize, getHeigth, getWidth} from '../../utils/responsiveScale';
+import {getFontSize, getHeight, getWidth} from '../../utils/responsiveScale';
 import {translate} from '../../config/i18n';
 
 interface OtpProps {
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
   },
   imageBackgroundStyle: {
     width: getWidth(100),
-    height: getHeigth(100),
+    height: getHeight(100),
   },
   spalshTopImgStyle: {
     width: getWidth(100),
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
 
   spalshCenterImgStyle: {
     display: 'flex',
-    marginTop: getHeigth(20),
+    marginTop: getHeight(20),
     textAlign: 'center',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -183,17 +183,17 @@ const styles = StyleSheet.create({
   },
   otpImageStyle: {
     display: 'flex',
-    marginTop: getHeigth(6),
+    marginTop: getHeight(6),
     alignSelf: 'center',
   },
   otpVerificationTextStyle: {
     textAlign: 'center',
-    marginVertical: getHeigth(3),
+    marginVertical: getHeight(3),
     fontFamily: 'MontserratAlternates-ExtraBold',
     fontSize: getFontSize(5),
     fontWeight: '700',
     color: '#18161B',
-    lineHeight: getHeigth(4),
+    lineHeight: getHeight(4),
   },
   entertheotpsenttoTextStyle: {
     textAlign: 'center',
@@ -202,11 +202,11 @@ const styles = StyleSheet.create({
   },
   regNumberStyle: {
     textAlign: 'center',
-    marginVertical: getHeigth(1),
+    marginVertical: getHeight(1),
     fontFamily: 'MontserratAlternates-ExtraBold',
     fontWeight: '700',
     fontSize: getFontSize(5),
-    lineHeight: getHeigth(4),
+    lineHeight: getHeight(4),
     color: '#18161B',
   },
   otpContainer: {
@@ -215,9 +215,9 @@ const styles = StyleSheet.create({
   otpInput: {
     width: 60,
     height: 60,
-    marginVertical: getHeigth(1.5),
-    padding: getHeigth(0.5),
-    borderRadius: getHeigth(5),
+    marginVertical: getHeight(1.5),
+    padding: getHeight(0.5),
+    borderRadius: getHeight(5),
     backgroundColor: 'white',
     color: 'black',
     fontWeight: '700',
@@ -231,11 +231,11 @@ const styles = StyleSheet.create({
   },
   continueButtonStyle: {
     backgroundColor: '#F62B2A',
-    borderRadius: getHeigth(5),
+    borderRadius: getHeight(5),
     marginHorizontal: getWidth(5),
-    paddingHorizontal: getHeigth(2),
-    paddingVertical: getHeigth(2.5),
-    marginVertical: getHeigth(3),
+    paddingHorizontal: getHeight(2),
+    paddingVertical: getHeight(2.5),
+    marginVertical: getHeight(3),
   },
   continueTextStyle: {
     textAlign: 'center',
@@ -251,13 +251,13 @@ const styles = StyleSheet.create({
   },
   dontRecTextStyle: {
     fontFamily: 'Poppins-SemiBold',
-    marginHorizontal: getHeigth(0.2),
+    marginHorizontal: getHeight(0.2),
     fontSize: getFontSize(4),
     color: '#705A2C',
   },
   resendTextStyle: {
     fontFamily: 'Poppins-SemiBold',
-    marginHorizontal: getHeigth(0.2),
+    marginHorizontal: getHeight(0.2),
     fontSize: getFontSize(4),
     color: '#DF201F',
     textDecorationLine: 'underline',

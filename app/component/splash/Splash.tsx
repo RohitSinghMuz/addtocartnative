@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import React, {useEffect} from 'react';
 import {spalshBg, splashCenter, spalshTop, spalshBottom} from '../../assets';
-import {getHeigth, getWidth} from '../../utils/responsiveScale';
+import {getHeight, getWidth} from '../../utils/responsiveScale';
 
 interface SplashProps {
   navigation: any;
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   imageBackgroundStyle: {
     width: getWidth(100),
-    height: getHeigth(100),
+    height: getHeight(100),
   },
   spalshTopImgStyle: {
     width: getWidth(100),
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
 
   spalshCenterImgStyle: {
     display: 'flex',
-    marginTop: getHeigth(20),
+    marginTop: getHeight(20),
 
     flexDirection: 'column',
     justifyContent: 'center',

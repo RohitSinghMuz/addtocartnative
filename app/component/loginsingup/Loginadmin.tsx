@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {Avatar} from 'react-native-elements';
 import {loginImg} from '../../assets';
-import {getFontSize, getHeigth, getWidth} from '../../utils/responsiveScale';
+import {getFontSize, getHeight, getWidth} from '../../utils/responsiveScale';
 import {translate} from '../../config/i18n';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -127,25 +127,25 @@ export default Loginadmin;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: getHeigth(5),
+    marginTop: getHeight(5),
     alignItems: 'center',
   },
   avatarContainer: {
-    paddingTop: getHeigth(1),
+    paddingTop: getHeight(1),
     borderWidth: 10,
     backgroundColor: '#dfe2e8',
     borderColor: '#fdf2da',
-    height: getHeigth(28),
+    height: getHeight(28),
     width: getWidth(56),
-    borderRadius: getHeigth(20),
+    borderRadius: getHeight(20),
   },
   deliveryTextStyle: {
     fontFamily: 'Montserrat Alternates',
     textAlign: 'center',
     fontWeight: '700',
-    lineHeight: getHeigth(3),
+    lineHeight: getHeight(3),
     fontSize: getFontSize(4.5),
-    marginVertical: getHeigth(2),
+    marginVertical: getHeight(2),
     color: '#18161B',
   },
   longestablishedTextStyle: {
@@ -153,8 +153,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins',
     fontSize: getFontSize(4),
     textTransform: 'capitalize',
-    marginHorizontal: getHeigth(5.5),
-    lineHeight: getHeigth(3),
+    marginHorizontal: getHeight(5.5),
+    lineHeight: getHeight(3),
     fontWeight: '500',
     textAlign: 'center',
   },
@@ -165,8 +165,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   iconEllipseStyle: {
-    marginHorizontal: getHeigth(1),
-    marginVertical: getHeigth(5),
+    marginHorizontal: getHeight(1),
+    marginVertical: getHeight(5),
   },
   loginViewStyle: {
     width: '100%',
@@ -174,39 +174,39 @@ const styles = StyleSheet.create({
   },
   loginRegisterText: {
     textAlign: 'center',
-    marginVertical: getHeigth(3),
+    marginVertical: getHeight(3),
     fontSize: getFontSize(5),
     fontWeight: '700',
     color: '#18161B',
   },
   inputNumberStyle: {
     backgroundColor: 'white',
-    paddingHorizontal: getHeigth(3),
+    paddingHorizontal: getHeight(3),
     width: '80%',
-    paddingVertical: getHeigth(2.5),
+    paddingVertical: getHeight(2.5),
     fontWeight: '700',
     color: '#DCDCDD',
     fontSize: getFontSize(4),
     fontFamily: 'Poppins',
   },
   inputContainer: {
-    borderRadius: getHeigth(5),
+    borderRadius: getHeight(5),
     marginHorizontal: getWidth(5),
     backgroundColor: 'white',
     display: 'flex',
     flexDirection: 'row',
   },
   iconStyle: {
-    marginLeft: getHeigth(2),
-    marginTop: getHeigth(2),
+    marginLeft: getHeight(2),
+    marginTop: getHeight(2),
   },
   continueButtonStyle: {
     backgroundColor: '#F62B2A',
-    borderRadius: getHeigth(5),
+    borderRadius: getHeight(5),
     marginHorizontal: getWidth(5),
-    paddingHorizontal: getHeigth(2),
-    paddingVertical: getHeigth(2.5),
-    marginVertical: getHeigth(3),
+    paddingHorizontal: getHeight(2),
+    paddingVertical: getHeight(2.5),
+    marginVertical: getHeight(3),
   },
   continueTextStyle: {
     textAlign: 'center',

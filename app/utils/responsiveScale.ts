@@ -9,7 +9,7 @@ const getWidth: (widthPercent: string | number) => number = widthPercent => {
   return PixelRatio.roundToNearestPixel((screenWidth * elemWidth) / 100);
 };
 
-const getHeigth: (heightPercent: string | number) => number = heightPercent => {
+const getHeight: (heightPercent: string | number) => number = heightPercent => {
   const elemHeight =
     typeof heightPercent === 'number'
       ? heightPercent
@@ -48,7 +48,7 @@ const removeOrientationListener = () => {
 
 export {
   getWidth,
-  getHeigth,
+  getHeight,
   listenOrientationChange,
   removeOrientationListener,
 };
