@@ -7,6 +7,8 @@
   "sizeText":"Enter Size of the Shoes",
   "rupessText":"Enter Price of the Shoes(Rs:)",
   "addNewText":"Add New Brand",
-  "shoesShopText":"Shoes Shop"
+  "shoesShopText":"Shoes Shop",
+  "continueAdminText":"Admin Login",
+  "continueusersText":"User Login"
  
 }

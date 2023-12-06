@@ -114,7 +114,7 @@ const Loginadmin: React.FC<LoginadminProps> = ({
           style={styles.continueButtonStyle}
           onPress={handleLogin}>
           <Text style={styles.continueTextStyle}>
-            {translate('continueText')}
+            {translate('continueAdminText')}
           </Text>
         </TouchableOpacity>
       </View>

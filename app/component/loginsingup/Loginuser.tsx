@@ -114,7 +114,7 @@ const Loginuser: React.FC<LoginadminProps> = ({
           style={styles.continueButtonStyle}
           onPress={handleLogin}>
           <Text style={styles.continueTextStyle}>
-            {translate('continueText')}
+            {translate('continueusersText')}
           </Text>
         </TouchableOpacity>
       </View>
