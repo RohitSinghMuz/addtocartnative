@@ -73,7 +73,7 @@ const Loginuser: React.FC<LoginadminProps> = ({
         containerStyle={styles.avatarContainer}
       />
       <Text style={styles.deliveryTextStyle}>
-        {translate('loginasAdminText')}
+        {translate('loginasUserText')}
       </Text>
 
       <View style={styles.loginViewStyle}>
