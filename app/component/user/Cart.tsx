@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {getHeight, getWidth} from '../../utils/responsiveScale';
 import Userhome from './Userhome';
+import {useFocusEffect} from '@react-navigation/native';
 
 interface CartItem {
   id: number;
@@ -19,8 +20,18 @@ const Cart: React.FC<{navigation: any}> = ({navigation}) => {
   useEffect(() => {
     loadCartData();
     // AsyncStorage.removeItem('cartItems');
-    //AsyncStorage.removeItem('totalAmount');
+    // AsyncStorage.removeItem('totalAmount');
   }, []);
+
+  useEffect(() => {
+    loadCartData();
+  }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      updateLocalStorage();
+    }, [cartItems, totalAmount]),
+  );
 
   const loadCartData = async () => {
     try {
@@ -50,44 +61,44 @@ const Cart: React.FC<{navigation: any}> = ({navigation}) => {
 
   const handleRemoveFromCart = (item: CartItem) => {
     if (item.price !== null) {
-      const existingCartItemIndex = cartItems.findIndex(
-        cartItem => cartItem.id === item.id,
+      const updatedCartItems = cartItems.map(cartItem =>
+        cartItem.id === item.id
+          ? {
+              ...cartItem,
+              quantity: cartItem.quantity - 1,
+            }
+          : cartItem,
       );
 
-      if (existingCartItemIndex !== -1) {
-        const updatedCartItems = [...cartItems];
-        const existingCartItem = updatedCartItems[existingCartItemIndex];
+      const updatedTotalAmount = totalAmount - (item.price || 0);
 
-        if (existingCartItem.quantity === 1) {
-          updatedCartItems.splice(existingCartItemIndex, 1);
-        } else {
-          existingCartItem.quantity -= 1;
-        }
+      setCartItems(updatedCartItems.filter(cartItem => cartItem.quantity > 0));
+      setTotalAmount(updatedTotalAmount);
 
-        setCartItems(updatedCartItems);
-        setTotalAmount(prevTotalAmount => prevTotalAmount - (item.price || 0));
+      updateLocalStorage();
 
-        updateLocalStorage();
-
-        if (updatedCartItems.length === 0) {
-          console.log('Cart is empty now');
-          AsyncStorage.removeItem('cartItems');
-          AsyncStorage.removeItem('totalAmount');
-        }
+      if (updatedCartItems.length === 0) {
+        AsyncStorage.removeItem('cartItems');
+        AsyncStorage.removeItem('totalAmount');
       }
     }
   };
 
   const handleIncreaseQuantity = (item: CartItem) => {
-    const existingCartItem = cartItems.find(
-      cartItem => cartItem.id === item.id,
+    const updatedCartItems = cartItems.map(cartItem =>
+      cartItem.id === item.id
+        ? {
+            ...cartItem,
+            quantity: cartItem.quantity + 1,
+          }
+        : cartItem,
     );
 
-    if (existingCartItem) {
-      existingCartItem.quantity += 1;
-    }
+    const updatedTotalAmount = totalAmount + (item.price || 0);
 
-    setTotalAmount(prevTotalAmount => prevTotalAmount + (item.price || 0));
+    setCartItems(updatedCartItems);
+    setTotalAmount(updatedTotalAmount);
+
     updateLocalStorage();
   };
 
