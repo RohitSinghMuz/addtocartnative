@@ -2,8 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, Button, TouchableOpacity, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {getHeight, getWidth} from '../../utils/responsiveScale';
-import Userhome from './Userhome';
+import {getFontSize, getHeight, getWidth} from '../../utils/responsiveScale';
 import {useFocusEffect} from '@react-navigation/native';
 
 interface CartItem {
@@ -104,46 +103,62 @@ const Cart: React.FC<{navigation: any}> = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.cartContainer}>
-        {cartItems.map(item => (
-          <View key={item.id} style={styles.cartItem}>
-            <Text style={styles.itemText}>
+      {cartItems.length > 0 ? (
+        <View style={styles.rowTitle}>
+          <Text style={styles.headerCell}>Brand Name</Text>
+          <Text style={styles.headerCell}>minus</Text>
+          <Text style={styles.headerCell}>Price</Text>
+          <Text style={styles.headerCell}>Quin</Text>
+          <Text style={styles.headerCell}>Plus</Text>
+        </View>
+      ) : null}
+
+      {cartItems.map((item, index) => {
+        return (
+          <View key={item.id} style={styles.row}>
+            <Text key={index} style={styles.titleStyle}>
               {item.brandName}
+            </Text>
+
+            <Text style={styles.titleStyle}>
               {cartItems.length > 0 && (
                 <TouchableOpacity onPress={() => handleRemoveFromCart(item)}>
                   {item.quantity === 1 ? (
                     <AntDesign
                       name="close"
-                      color="black"
-                      size={20}
+                      color="#9a9a9a"
+                      size={25}
                       style={styles.icon}
                     />
                   ) : (
                     <AntDesign
                       name="minus"
-                      color="black"
-                      size={20}
+                      color="#9a9a9a"
+                      size={25}
                       style={styles.icon}
                     />
                   )}
                 </TouchableOpacity>
               )}
-              ${item.price}*{item.quantity}
-              <TouchableOpacity onPress={() => handleIncreaseQuantity(item)}>
-                <AntDesign
-                  name="plus"
-                  color="black"
-                  size={20}
-                  style={styles.icon}
-                />
-              </TouchableOpacity>
             </Text>
+            <Text style={styles.titleStyle}>${item.price}*</Text>
+            <Text style={styles.titleStyle}> {item.quantity}</Text>
+
+            <TouchableOpacity onPress={() => handleIncreaseQuantity(item)}>
+              <AntDesign
+                name="plus"
+                color="#9a9a9a"
+                size={25}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
           </View>
-        ))}
-        {cartItems.length > 0 && (
-          <Text style={styles.totalAmount}>Total Amount: ${totalAmount}</Text>
-        )}
-      </View>
+        );
+      })}
+
+      {cartItems.length > 0 && (
+        <Text style={styles.totalAmount}>Total Amount: ${totalAmount}</Text>
+      )}
     </View>
   );
 };
@@ -152,11 +167,8 @@ export default Cart;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'grey',
-  },
-  cartContainer: {
-    backgroundColor: 'grey',
-    padding: 10,
+    backgroundColor: 'white',
+    paddingHorizontal: getHeight(2),
   },
   cartItem: {
     marginBottom: 10,
@@ -172,7 +184,39 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   totalAmount: {
-    marginTop: 10,
+    fontSize: getFontSize(5),
+    margin: getFontSize(5),
     fontWeight: 'bold',
+    color: 'red',
+  },
+
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomColor: '#ccc',
+    marginHorizontal: getHeight(2),
+  },
+  headerCell: {
+    fontWeight: 'bold',
+    color: '#9a9a9a',
+    fontSize: getFontSize(3.4),
+    flex: 1,
+    textAlign: 'center',
+  },
+  cell: {
+    flex: 1,
+    textAlign: 'center',
+  },
+  rowTitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: getHeight(2),
+    marginHorizontal: getHeight(1),
+  },
+  titleStyle: {
+    color: '#9a9a9a',
+    fontWeight: 'bold',
+    fontSize: getFontSize(4),
+    fontFamily: 'Poppins',
   },
 });
