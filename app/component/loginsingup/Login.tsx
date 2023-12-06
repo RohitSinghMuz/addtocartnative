@@ -61,14 +61,14 @@ const Login: React.FC<SplashProps> = ({navigation}: SplashProps) => {
 
       <View style={styles.loginViewStyle}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('Loginadmin')}
+          onPress={() => navigation.navigate('Adminnavigation')}
           style={styles.loginasUserTextStyle}>
           <Text style={styles.continueTextStyle}>
             {translate('loginasAdminText')}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigation.navigate('Loginuser')}
+          onPress={() => navigation.navigate('Usersnavigation')}
           style={styles.loginasUserTextStyle}>
           <Text style={styles.continueTextStyle}>
             {translate('loginasUserText')}

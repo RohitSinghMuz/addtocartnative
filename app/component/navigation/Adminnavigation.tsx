@@ -11,36 +11,24 @@ import Loginuser from '../loginsingup/Loginuser';
 import Adminhome from '../Admin/Adminhome';
 import Userhome from '../user/Userhome';
 import Cart from '../user/Cart';
-import Adminnavigation from './Adminnavigation';
-import Usersnavigation from './Usersnavigation';
 
 const Stack = createStackNavigator();
 
-const Appnavigation = () => {
+const Adminnavigation = () => {
   return (
-    <Stack.Navigator initialRouteName="Splash">
+    <Stack.Navigator initialRouteName="Loginadmin">
       <Stack.Screen
-        name="Splash"
-        component={Splash}
+        name="Loginadmin"
+        component={Loginadmin}
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="Login"
-        component={Login}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="Adminnavigation"
-        component={Adminnavigation}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="Usersnavigation"
-        component={Usersnavigation}
+        name="Adminhome"
+        component={Adminhome}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
   );
 };
 
-export default Appnavigation;
+export default Adminnavigation;
